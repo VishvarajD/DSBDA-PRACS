@@ -1,0 +1,34 @@
+import pandas as pd
+import numpy as np
+
+# Step 1: Create sample dataset with missing values
+data = {
+    'Student_ID': range(1, 11),
+    'Marks': [85, 78, np.nan, 92, 88, 69, 95, np.nan, 80, 89],
+    'Attendance': [95, 88, 90, np.nan, 85, 80, 92, 78, np.nan, 87],
+    'Study_Hours': [5, 4, 6, 7, 5, np.nan, 8, 4, 6, 5],
+    'Extracurricular': ['Yes', 'No', 'Yes', np.nan, 'No', 'Yes', 'No', 'Yes', np.nan, 'No']
+}
+df = pd.DataFrame(data)
+
+# Step 2: Fill missing values using mean, median, mode (no warning method)
+df.fillna({
+    'Marks': df['Marks'].mean(),
+    'Attendance': df['Attendance'].mode()[0],
+    'Study_Hours': df['Study_Hours'].median()
+}, inplace=True)
+
+# Step 3: Detect outliers in 'Marks' using IQR method
+Q1 = df['Marks'].quantile(0.25)
+Q3 = df['Marks'].quantile(0.75)
+IQR = Q3 - Q1
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+# Step 4: Print outliers
+r_outlier = []
+for i in df['Marks']:
+    if i < lower_bound or i > upper_bound:
+        r_outlier.append(i)
+
+print("Outliers in Marks column:", r_outlier)
