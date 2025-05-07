@@ -1,0 +1,22 @@
+import pandas as pd
+
+# Load the dataset
+df = pd.read_csv('iris.csv')
+
+# View basic info
+print(df.head())
+print(df.tail())
+print(df.shape)
+print(df.describe())
+print(df.info())
+
+# Check for missing values
+print(df.isna())
+print(df.isnull().sum())
+
+# Map species names to numbers
+mapping = {'Setosa': 0, 'Versicolor': 1, 'Virginica': 2}
+df['Species'] = df['Species'].map(mapping)
+
+# View updated data
+print(df.head())
