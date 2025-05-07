@@ -1,0 +1,31 @@
+# Measure of Central Tendencies
+import pandas as pd
+
+# Load the dataset
+df = pd.read_csv("iris.csv")
+
+# Display first 5 rows
+print("Head of Dataset:\n", df.head())
+
+# Data types of each column
+print("\nData Types:\n", df.dtypes)
+
+# Mean of all numeric columns grouped by Species
+print("\nMean of Each Column Grouped by Species:\n", df.groupby('Species').mean())
+
+# Mean SepalLength grouped by Species
+print("\nMean SepalLength by Species:\n", df.groupby('Species')['SepalLength'].mean())
+
+# Median SepalWidth grouped by Species
+print("\nMedian SepalWidth by Species:\n", df.groupby('Species')['SepalWidth'].median())
+
+# Max PetalLength grouped by Species
+print("\nMax PetalLength by Species:\n", df.groupby('Species')['PetalLength'].max())
+
+# Standard Deviation of PetalWidth grouped by Species
+print("\nStandard Deviation of PetalWidth by Species:\n", df.groupby('Species')['PetalWidth'].std())
+
+# Mapping Species to numeric values
+mapping = {'Setosa': 0, 'Versicolor': 1, 'Virginica': 2}
+numeric_list = [mapping[species] for species in df['Species']]
+print("\nNumeric List of Species:\n", numeric_list)
